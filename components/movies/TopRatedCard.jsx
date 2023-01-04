@@ -1,6 +1,6 @@
 import styled from "@emotion/native";
 import useDarkMode from "../../hooks/useDarkMode";
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../uitils/utils";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../utils/utils";
 
 const poster2 =
   "https://www.themoviedb.org/t/p/w1280/2mKLgFJ7eacZcB3fazrU8O4rkCO.jpg";

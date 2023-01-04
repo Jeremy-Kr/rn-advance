@@ -1,7 +1,7 @@
 import styled from "@emotion/native";
 import { LinearGradient } from "expo-linear-gradient";
 import useDarkMode from "../../hooks/useDarkMode";
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../uitils/utils";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../utils/utils";
 
 const poster1 =
   "https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/iHSwvRVsRyxpX7FE7GbviaDvgGZ.jpg";

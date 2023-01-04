@@ -1,21 +1,19 @@
 import styled from "@emotion/native";
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../uitils/utils";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../utils/utils";
 
-const poster2 =
-  "https://www.themoviedb.org/t/p/w1280/2mKLgFJ7eacZcB3fazrU8O4rkCO.jpg";
+const UpcomingSection = ({ item }) => {
+  const poster_uri = `https://www.themoviedb.org/t/p/w1280${item.poster_path}`;
 
-const UpcomingSection = () => {
   return (
     <UpcomingSectionContainer>
-      <UpcomingImage source={{ uri: poster2 }} resizeMode="contain" />
+      <UpcomingImage source={{ uri: poster_uri }} resizeMode="contain" />
       <UpcomingDetailContainer>
-        <UpcomingDetailTitle>웬즈데이</UpcomingDetailTitle>
-        <UpcomingDetailDate>2022-12-02</UpcomingDetailDate>
+        <UpcomingDetailTitle numberOfLines={1}>
+          {item.title}
+        </UpcomingDetailTitle>
+        <UpcomingDetailDate>{item.release_date}</UpcomingDetailDate>
         <UpcomingDetailContent numberOfLines={5}>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum,
-          nesciunt molestiae expedita qui neque, eius perferendis porro
-          inventore eos ea, odit iste beatae vitae! Veniam quibusdam et dolore
-          vero blanditiis.
+          {item.overview}
         </UpcomingDetailContent>
       </UpcomingDetailContainer>
     </UpcomingSectionContainer>
@@ -28,6 +26,7 @@ const UpcomingSectionContainer = styled.View`
   height: ${SCREEN_HEIGHT / 4.5 + "px"};
   width: 100%;
   padding: 10px 5px;
+  margin-left: 10px;
 `;
 
 const UpcomingImage = styled.Image`
@@ -42,6 +41,7 @@ const UpcomingDetailContainer = styled.View`
 
 const UpcomingDetailTitle = styled.Text`
   color: ${({ theme }) => theme.color};
+  width: 60%;
   font-size: 18px;
   font-weight: 800;
 `;
@@ -53,7 +53,7 @@ const UpcomingDetailDate = styled.Text`
 
 const UpcomingDetailContent = styled.Text`
   color: ${({ theme }) => theme.color};
-  width: 65%;
+  width: 60%;
 `;
 
 export default UpcomingSection;

@@ -2,17 +2,18 @@ import styled from "@emotion/native";
 import useDarkMode from "../../hooks/useDarkMode";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../utils/utils";
 
-const poster2 =
-  "https://www.themoviedb.org/t/p/w1280/2mKLgFJ7eacZcB3fazrU8O4rkCO.jpg";
-
-const TopRatedCard = () => {
+const TopRatedCard = ({ item }) => {
   const { ratedIcon } = useDarkMode();
+
+  const poster_uri = `https://www.themoviedb.org/t/p/w1280${item.poster_path}`;
 
   return (
     <TopRatedCardContainer>
-      <TopRatedImage source={{ uri: poster2 }} resizeMode="cover" />
-      <TopRatedStars>{ratedIcon} 8.7/10</TopRatedStars>
-      <TopRatedTitle numberOfLines={1}>웬즈데이</TopRatedTitle>
+      <TopRatedImage source={{ uri: poster_uri }} resizeMode="cover" />
+      <TopRatedStars>
+        {ratedIcon} {item.vote_average}/10
+      </TopRatedStars>
+      <TopRatedTitle numberOfLines={1}>{item.title}</TopRatedTitle>
     </TopRatedCardContainer>
   );
 };

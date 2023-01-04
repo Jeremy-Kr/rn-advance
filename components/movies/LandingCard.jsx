@@ -1,34 +1,40 @@
 import styled from "@emotion/native";
+import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import useDarkMode from "../../hooks/useDarkMode";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../utils/utils";
 
-const poster1 =
-  "https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/iHSwvRVsRyxpX7FE7GbviaDvgGZ.jpg";
-const poster2 =
-  "https://www.themoviedb.org/t/p/w1280/2mKLgFJ7eacZcB3fazrU8O4rkCO.jpg";
-
-const LandingCard = () => {
+const LandingCard = ({ item }) => {
+  const { navigate } = useNavigation();
   const { ratedIcon } = useDarkMode();
+
+  const poster_uri = `https://www.themoviedb.org/t/p/w1280${item.poster_path}`;
+  const backdrop_uri = `https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces${item.backdrop_path}`;
+
   return (
-    <LandingViewContainer>
+    <LandingViewContainer
+      onPress={() =>
+        navigate("Stacks", { screen: "Detail", params: { movieId: item.id } })
+      }
+    >
       <BackgroundGradient
         colors={["rgba(0,0,0,0.9)", "transparent"]}
         start={{ x: 0.5, y: 1 }}
         end={{ x: 0.5, y: 0 }}
         locations={[0, 1]}
       />
-      <BackgroundImage source={{ uri: poster1 }} />
+      <BackgroundImage source={{ uri: backdrop_uri }} />
       <LandingDetailView>
-        <LandingDetailPoster source={{ uri: poster2 }} resizeMode="cover" />
+        <LandingDetailPoster source={{ uri: poster_uri }} resizeMode="cover" />
         <LandingDetailTextContainer>
-          <LandingDetailTitle>웬즈데이</LandingDetailTitle>
-          <LandingDetailStars>{ratedIcon} 8.7/10</LandingDetailStars>
+          <LandingDetailTitle numberOfLines={1}>
+            {item.title}
+          </LandingDetailTitle>
+          <LandingDetailStars>
+            {ratedIcon} {item.vote_average}/10
+          </LandingDetailStars>
           <LandingDetailContent numberOfLines={4}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, quod
-            neque ad odit porro expedita sint rerum laborum quas aperiam esse
-            nihil! Impedit ipsa, aperiam voluptas iusto beatae explicabo
-            placeat?
+            {item.overview}
           </LandingDetailContent>
         </LandingDetailTextContainer>
       </LandingDetailView>
@@ -36,7 +42,7 @@ const LandingCard = () => {
   );
 };
 
-const LandingViewContainer = styled.View`
+const LandingViewContainer = styled.TouchableOpacity`
   position: relative;
   height: 100%;
   width: 100%;
@@ -76,7 +82,7 @@ const LandingDetailPoster = styled.Image`
 
 const LandingDetailTextContainer = styled.View`
   flex: 1;
-  height: 45%;
+  height: 48%;
   margin-left: 10px;
 `;
 

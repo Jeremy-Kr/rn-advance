@@ -1,25 +1,41 @@
 import styled from "@emotion/native";
+import { FlatList } from "react-native";
+import { ActivityIndicator } from "react-native-paper";
+import useMovies from "../../hooks/useMovies";
+import { SCREEN_HEIGHT } from "../../utils/utils";
 import TopRatedCard from "./TopRatedCard";
 
 const TopRated = () => {
+  const { isLoading, topRatedMovies } = useMovies();
+
+  if (isLoading) {
+    return (
+      <ActivityIndicatorContainer>
+        <ActivityIndicator />
+      </ActivityIndicatorContainer>
+    );
+  }
+
   return (
     <>
       <TopRatedMainTitle>Top Rated Movies</TopRatedMainTitle>
-      <TopRatedContainer horizontal={true}>
-        <TopRatedCard />
-        <TopRatedCard />
-        <TopRatedCard />
-        <TopRatedCard />
-        <TopRatedCard />
-        <TopRatedCard />
-        <TopRatedCard />
-        <TopRatedCard />
-        <TopRatedCard />
-        <TopRatedCard />
-      </TopRatedContainer>
+      <TopRatedCardContainer
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        data={topRatedMovies}
+        renderItem={({ item }) => <TopRatedCard item={item} />}
+        keyExtractor={(item) => item.id}
+      />
     </>
   );
 };
+
+const ActivityIndicatorContainer = styled.View`
+  flex: ${1 / 3};
+  height: ${SCREEN_HEIGHT / 3 + "px"};
+  justify-content: center;
+  align-items: center;
+`;
 
 const TopRatedMainTitle = styled.Text`
   color: ${({ theme }) => theme.color};
@@ -28,6 +44,8 @@ const TopRatedMainTitle = styled.Text`
   margin: 10px 10px 0 10px;
 `;
 
-const TopRatedContainer = styled.ScrollView``;
+const TopRatedCardContainer = styled(FlatList)`
+  margin: 0 10px;
+`;
 
 export default TopRated;

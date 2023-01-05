@@ -6,7 +6,8 @@ import { SCREEN_HEIGHT } from "../../utils/utils";
 import TopRatedCard from "./TopRatedCard";
 
 const TopRated = () => {
-  const { isTopRatedMoviesLoading, topRatedMovies } = useMovies();
+  const { isTopRatedMoviesLoading, topRatedMovies, fetchNextTopRatedMovies } =
+    useMovies();
 
   if (isTopRatedMoviesLoading) {
     return (
@@ -20,9 +21,11 @@ const TopRated = () => {
     <>
       <TopRatedMainTitle>Top Rated Movies</TopRatedMainTitle>
       <TopRatedCardContainer
+        onEndReached={fetchNextTopRatedMovies}
+        onEndReachedThreshold={0.5}
         horizontal
         showsHorizontalScrollIndicator={false}
-        data={topRatedMovies.results}
+        data={topRatedMovies.pages.map((page) => page.results).flat()}
         renderItem={({ item }) => <TopRatedCard item={item} />}
         keyExtractor={(item) => item.id}
       />

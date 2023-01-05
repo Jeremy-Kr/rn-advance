@@ -27,7 +27,6 @@ const UpcomingSection = ({ item }) => {
 };
 
 const UpcomingSectionContainer = styled.TouchableOpacity`
-  flex: 1;
   flex-direction: row;
   height: ${SCREEN_HEIGHT / 4.5 + "px"};
   width: 100%;

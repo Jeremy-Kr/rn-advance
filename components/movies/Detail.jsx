@@ -1,6 +1,6 @@
 import styled from "@emotion/native";
 import { LinearGradient } from "expo-linear-gradient";
-import { Linking, Text, TouchableOpacity } from "react-native";
+import { Linking } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
 import useDetail from "../../hooks/useDetail";
 import { SCREEN_HEIGHT } from "../../utils/utils";

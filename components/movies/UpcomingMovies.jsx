@@ -5,9 +5,9 @@ import { SCREEN_HEIGHT } from "../../utils/utils";
 import UpcomingSection from "./UpcomingSection";
 
 const UpcomingMovies = () => {
-  const { isLoading, upcomingMovies } = useMovies();
+  const { isUpcomingMoviesLoading, upcomingMovies } = useMovies();
 
-  if (isLoading) {
+  if (isUpcomingMoviesLoading) {
     return (
       <ActivityIndicatorContainer>
         <ActivityIndicator />
@@ -18,7 +18,7 @@ const UpcomingMovies = () => {
   return (
     <>
       <UpcomingMoviesMainTitle>Upcoming Movies</UpcomingMoviesMainTitle>
-      {upcomingMovies.map((item) => (
+      {upcomingMovies.results.map((item) => (
         <UpcomingSection item={item} key={item.id} />
       ))}
     </>

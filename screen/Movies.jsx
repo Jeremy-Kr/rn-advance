@@ -1,17 +1,31 @@
 import styled from "@emotion/native";
-import { FlatList, RefreshControl, View } from "react-native";
+import { useState } from "react";
+import { RefreshControl } from "react-native";
 import Landing from "../components/movies/Landing";
 import TopRated from "../components/movies/TopRated";
 import UpcomingMovies from "../components/movies/UpcomingMovies";
 import useMovies from "../hooks/useMovies";
 
 const Movies = () => {
-  const { isLoading, getAllMoviesData } = useMovies();
-  const handleOnRefresh = () => {
-    getAllMoviesData();
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const { refetchMovies } = useMovies();
+
+  const handleOnRefresh = async () => {
+    setIsRefreshing(true);
+    refetchMovies();
+    setIsRefreshing(false);
   };
   return (
-    <MoviesContainer>
+    <MoviesContainer
+      refreshControl={
+        <RefreshControl
+          refreshing={isRefreshing}
+          onRefresh={() => {
+            handleOnRefresh();
+          }}
+        />
+      }
+    >
       <Landing />
       <TopRated />
       <UpcomingMovies />

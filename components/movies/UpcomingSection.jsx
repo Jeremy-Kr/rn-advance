@@ -1,11 +1,17 @@
 import styled from "@emotion/native";
+import { useNavigation } from "@react-navigation/native";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../utils/utils";
 
 const UpcomingSection = ({ item }) => {
+  const { navigate } = useNavigation();
   const poster_uri = `https://www.themoviedb.org/t/p/w1280${item.poster_path}`;
 
   return (
-    <UpcomingSectionContainer>
+    <UpcomingSectionContainer
+      onPress={() =>
+        navigate("Stacks", { screen: "Detail", params: { movieId: item.id } })
+      }
+    >
       <UpcomingImage source={{ uri: poster_uri }} resizeMode="contain" />
       <UpcomingDetailContainer>
         <UpcomingDetailTitle numberOfLines={1}>
@@ -20,7 +26,7 @@ const UpcomingSection = ({ item }) => {
   );
 };
 
-const UpcomingSectionContainer = styled.View`
+const UpcomingSectionContainer = styled.TouchableOpacity`
   flex: 1;
   flex-direction: row;
   height: ${SCREEN_HEIGHT / 4.5 + "px"};

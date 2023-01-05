@@ -6,8 +6,9 @@ import { SCREEN_HEIGHT } from "../../utils/utils";
 import LandingCard from "./LandingCard";
 
 const Landing = () => {
-  const { isLoading, nowPlayings } = useMovies();
-  if (isLoading) {
+  const { isNowPlayingsLoading, nowPlayings } = useMovies();
+
+  if (isNowPlayingsLoading) {
     return (
       <ActivityIndicatorContainer>
         <ActivityIndicator />
@@ -16,7 +17,7 @@ const Landing = () => {
   }
   return (
     <SwiperContainer showsPagination={false} autoplay loop>
-      {nowPlayings.map((item) => {
+      {nowPlayings.results.map((item) => {
         return <LandingCard item={item} key={item.id} />;
       })}
     </SwiperContainer>

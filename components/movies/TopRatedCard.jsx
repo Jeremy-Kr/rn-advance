@@ -1,14 +1,20 @@
 import styled from "@emotion/native";
+import { useNavigation } from "@react-navigation/native";
 import useDarkMode from "../../hooks/useDarkMode";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../utils/utils";
 
 const TopRatedCard = ({ item }) => {
+  const { navigate } = useNavigation();
   const { ratedIcon } = useDarkMode();
 
   const poster_uri = `https://www.themoviedb.org/t/p/w1280${item.poster_path}`;
 
   return (
-    <TopRatedCardContainer>
+    <TopRatedCardContainer
+      onPress={() =>
+        navigate("Stacks", { screen: "Detail", params: { movieId: item.id } })
+      }
+    >
       <TopRatedImage source={{ uri: poster_uri }} resizeMode="cover" />
       <TopRatedStars>
         {ratedIcon} {item.vote_average}/10
@@ -18,7 +24,7 @@ const TopRatedCard = ({ item }) => {
   );
 };
 
-const TopRatedCardContainer = styled.View`
+const TopRatedCardContainer = styled.TouchableOpacity`
   width: ${SCREEN_WIDTH / 3.5 + "px"};
   height: ${SCREEN_HEIGHT / 3.7 + "px"};
   margin: 10px;
